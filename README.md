@@ -19,3 +19,5 @@
 - Write "win" logic. Add 1 point to counter when cell changes from "has-food" class to "active" class. 
 
 - write "loose" logic when "next-box" is undefined.
+
+- modify snake speed (Easy, Medium, Difficult) with button groups
