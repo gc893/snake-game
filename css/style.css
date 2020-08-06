@@ -43,6 +43,10 @@ body {
     background-color: lightgreen;
 }
 
+.board > .active {
+    background-color: gray;
+}
+
  .game-info {
     background-color: white;
     width: 100%;

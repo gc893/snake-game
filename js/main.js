@@ -26,12 +26,12 @@
         return boxIndex;
     }
 
-    // function generateStartIndex() {
-    //     const r = Math.floor(Math.random()*12 + 4);
-    //     const c = Math.floor(Math.random()*20);
-    //     const boxIndex = r.toString() + '-' + c.toString();
-    //     return boxIndex;
-    // }
+    function generateStartIndex() {
+        const r = Math.floor(Math.random()*12 + 4);
+        const c = Math.floor(Math.random()*12 + 4);
+        const boxIndex = r.toString() + '-' + c.toString();
+        return boxIndex;
+    }
 
 // Functions
 
@@ -56,6 +56,16 @@
             return placeFood();
         } else {
             box.className = 'has-food';
+        }
+        return;
+    }
+
+    function createSnake() {
+        let box = selectBox(generateStartIndex());
+        if (box.className){
+            return createSnake();
+        } else {
+            box.className = 'active';
         }
         return;
     }
