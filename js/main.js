@@ -1,37 +1,73 @@
+// Notes
+    // Notation: designed as (rows, columns), not (columns, rows).
+
 // Variables
 
 
 
 //Cached Element References
 
-const board = document.getElementById('board');
+    const board = document.getElementById('board');
 
 // Event Listeners
 
 
 
+// Helper Functions
+
+    function selectBox(boxIndex){
+        return document.getElementById(boxIndex);
+    }
+
+    function generateFoodIndex () {
+        const r = Math.floor(Math.random()*20);
+        const c = Math.floor(Math.random()*20);
+        const boxIndex = r.toString() + '-' + c.toString();
+        return boxIndex;
+    }
+
+    // function generateStartIndex() {
+    //     const r = Math.floor(Math.random()*12 + 4);
+    //     const c = Math.floor(Math.random()*20);
+    //     const boxIndex = r.toString() + '-' + c.toString();
+    //     return boxIndex;
+    // }
+
 // Functions
 
 
 
-//Create all the boxes inside the board
+    //Create all the boxes inside the board
 
-function createBoxes () {
-    console.log(board)
-    for (let i = 0; i < 400; i++) {
-        let box = document.createElement('div');
-        box.className = `${Math.floor(i/20)}-${i%20}`;
-        board.appendChild(box);
+    function createBoxes () {
+        console.log(board)
+        for (let i = 0; i < 400; i++) {
+            let box = document.createElement('div');
+            box.id = `${Math.floor(i/20)}-${i%20}`;
+            board.appendChild(box);
+        }
     }
-}
 
+    //Place a food item on the board
 
-function init() {
-    createBoxes();
+    function placeFood() {
+        let box = selectBox(generateFoodIndex());
+        if (box.className){
+            return placeFood();
+        } else {
+            box.className = 'has-food';
+        }
+        return;
+    }
 
-}
+    //Initialize game function
 
-init();
+    function init() {
+        createBoxes();
+
+    }
+
+    init();
 
 //Define active/Inactive/has-food classes in css
 

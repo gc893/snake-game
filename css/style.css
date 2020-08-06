@@ -39,6 +39,10 @@ body {
     background-color: aliceblue;
 }
 
+.board > .has-food {
+    background-color: lightgreen;
+}
+
  .game-info {
     background-color: white;
     width: 100%;
