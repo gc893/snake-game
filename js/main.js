@@ -79,11 +79,8 @@
 
     init();
 
-//Define active/Inactive/has-food classes in css
-
 //Activate the inital boxes (create snake)
 
-//generate 2 random numbers to place "food" in the board
 
 //write timed logic to "move the snake" by activating/inactivating boxes.
 
