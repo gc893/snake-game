@@ -1,4 +1,37 @@
+// Variables
+
+
+
+//Cached Element References
+
+const board = document.getElementById('board');
+
+// Event Listeners
+
+
+
+// Functions
+
+
+
 //Create all the boxes inside the board
+
+function createBoxes () {
+    console.log(board)
+    for (let i = 0; i < 400; i++) {
+        let box = document.createElement('div');
+        box.className = `${Math.floor(i/20)}-${i%20}`;
+        board.appendChild(box);
+    }
+}
+
+
+function init() {
+    createBoxes();
+
+}
+
+init();
 
 //Define active/Inactive/has-food classes in css
 

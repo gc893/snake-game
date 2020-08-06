@@ -23,10 +23,20 @@ body {
 
 /* Assuming 20x20 grid of 2px*2px boxes */
  .board {
+    display: flex;
+    flex-wrap: wrap;
     background-color: coral;
     width: 400px;
     height: 400px;
     margin-left: 100px;
+}
+
+.board > div {
+    padding : 0;
+    margin : 0;
+    width: 20px;
+    height: 20px;
+    background-color: white;
 }
 
  .game-info {
