@@ -3,7 +3,7 @@
 
 // Variables
 
-
+    let direction = Math.floor(Math.random()*4 +1);
 
 //Cached Element References
 
@@ -48,6 +48,55 @@
         }
     }
 
+    //Activate 4 random consecutive boxes to create the snake
+
+    function createSnake() {
+        let box = selectBox(generateStartIndex());
+        if (box.className){
+            return createSnake();
+        } else {
+            box.className = 'active';
+        }
+        
+        let id = box.id;
+        const idArr = id.split("-");
+        console.log(parseInt(idArr[0]));
+        switch(direction) {
+            case 1:
+                for(let i = 1; i <4; i++){
+                    let rIdx = parseInt(idArr[0])+i;
+                    let cIdx = parseInt(idArr[1]);
+                    let newBox = document.getElementById(`${rIdx}-${cIdx}`);
+                    newBox.className = 'active';
+                }
+                break;
+            case 2: 
+                for(let i = 1; i <4; i++){
+                    let rIdx = parseInt(idArr[0]);
+                    let cIdx = parseInt(idArr[1])+i;
+                    let newBox = document.getElementById(`${rIdx}-${cIdx}`);
+                    newBox.className = 'active';
+                }
+                break;
+            case 3: 
+                for(let i = -1; i > -4; i--){
+                    let rIdx = parseInt(idArr[0])+i;
+                    let cIdx = parseInt(idArr[1]);
+                    let newBox = document.getElementById(`${rIdx}-${cIdx}`);
+                    newBox.className = 'active';
+                }
+                break;
+            case 4: 
+                for(let i = -1; i > -4; i--){
+                    let rIdx = parseInt(idArr[0]);
+                    let cIdx = parseInt(idArr[1])+i;
+                    let newBox = document.getElementById(`${rIdx}-${cIdx}`);
+                    newBox.className = 'active';
+                }
+                break;
+        }
+    }
+
     //Place a food item on the board
 
     function placeFood() {
@@ -57,24 +106,14 @@
         } else {
             box.className = 'has-food';
         }
-        return;
-    }
-
-    function createSnake() {
-        let box = selectBox(generateStartIndex());
-        if (box.className){
-            return createSnake();
-        } else {
-            box.className = 'active';
-        }
-        return;
     }
 
     //Initialize game function
 
     function init() {
         createBoxes();
-
+        createSnake();
+        placeFood();
     }
 
     init();
