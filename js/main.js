@@ -4,6 +4,7 @@
 // Variables
 
     let direction = Math.floor(Math.random()*4 +1);
+    let gameActive;
 
 //Cached Element References
 
@@ -11,7 +12,7 @@
 
 // Event Listeners
 
-
+    document.addEventListener('keydown', event => changeDirection(event.keyCode))
 
 // Helper Functions
 
@@ -33,9 +34,44 @@
         return boxIndex;
     }
 
+    function expandSnake(arr) {
+        switch(direction) {
+            case 1:
+                for(let i = 1; i <4; i++){
+                    let rIdx = parseInt(arr[0])+i;
+                    let cIdx = parseInt(arr[1]);
+                    let newBox = document.getElementById(`${rIdx}-${cIdx}`);
+                    newBox.className = 'active';
+                }
+                break;
+            case 2: 
+                for(let i = 1; i <4; i++){
+                    let rIdx = parseInt(arr[0]);
+                    let cIdx = parseInt(arr[1])+i;
+                    let newBox = document.getElementById(`${rIdx}-${cIdx}`);
+                    newBox.className = 'active';
+                }
+                break;
+            case 3: 
+                for(let i = -1; i > -4; i--){
+                    let rIdx = parseInt(arr[0])+i;
+                    let cIdx = parseInt(arr[1]);
+                    let newBox = document.getElementById(`${rIdx}-${cIdx}`);
+                    newBox.className = 'active';
+                }
+                break;
+            case 4: 
+                for(let i = -1; i > -4; i--){
+                    let rIdx = parseInt(arr[0]);
+                    let cIdx = parseInt(arr[1])+i;
+                    let newBox = document.getElementById(`${rIdx}-${cIdx}`);
+                    newBox.className = 'active';
+                }
+                break;
+        }
+    }
+
 // Functions
-
-
 
     //Create all the boxes inside the board
 
@@ -61,40 +97,7 @@
         let id = box.id;
         const idArr = id.split("-");
         console.log(parseInt(idArr[0]));
-        switch(direction) {
-            case 1:
-                for(let i = 1; i <4; i++){
-                    let rIdx = parseInt(idArr[0])+i;
-                    let cIdx = parseInt(idArr[1]);
-                    let newBox = document.getElementById(`${rIdx}-${cIdx}`);
-                    newBox.className = 'active';
-                }
-                break;
-            case 2: 
-                for(let i = 1; i <4; i++){
-                    let rIdx = parseInt(idArr[0]);
-                    let cIdx = parseInt(idArr[1])+i;
-                    let newBox = document.getElementById(`${rIdx}-${cIdx}`);
-                    newBox.className = 'active';
-                }
-                break;
-            case 3: 
-                for(let i = -1; i > -4; i--){
-                    let rIdx = parseInt(idArr[0])+i;
-                    let cIdx = parseInt(idArr[1]);
-                    let newBox = document.getElementById(`${rIdx}-${cIdx}`);
-                    newBox.className = 'active';
-                }
-                break;
-            case 4: 
-                for(let i = -1; i > -4; i--){
-                    let rIdx = parseInt(idArr[0]);
-                    let cIdx = parseInt(idArr[1])+i;
-                    let newBox = document.getElementById(`${rIdx}-${cIdx}`);
-                    newBox.className = 'active';
-                }
-                break;
-        }
+        expandSnake(idArr);
     }
 
     //Place a food item on the board
@@ -108,9 +111,27 @@
         }
     }
 
+    function changeDirection (key) {
+        if (!gameActive) {
+            gameActive = true;
+        }
+        if (key === 37) {
+            direction = 4;
+        } else if (key === 38) {
+            direction = 1;
+        } else if (key === 39) {
+            direction = 2;
+        } else if (key === 40) {
+            direction = 3;
+        }
+    }
+
     //Initialize game function
 
     function init() {
+        let gameActive = false;
+        direction = Math.floor(Math.random()*4 +1);
+        
         createBoxes();
         createSnake();
         placeFood();
@@ -118,7 +139,6 @@
 
     init();
 
-//Activate the inital boxes (create snake)
 
 
 //write timed logic to "move the snake" by activating/inactivating boxes.
