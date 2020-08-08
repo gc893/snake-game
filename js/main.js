@@ -5,7 +5,7 @@
 // Variables
 
     let direction = Math.floor(Math.random()*4 +1);
-    let score = 0, gameActive;
+    let movementInterval, n= 500, score = 0, gameActive;
     const snakePosition = [];
 
 //Cached Element References
@@ -44,6 +44,10 @@
                     let rIdx = parseInt(arr[0])-i;
                     let cIdx = parseInt(arr[1]);
                     let newBox = document.getElementById(`${rIdx}-${cIdx}`);
+                    if (!newBox) {
+                        clearInterval(movementInterval);
+                        return;
+                    };
                     evaluateScore(newBox);
                     newBox.className = 'active';
                     snakePosition.push(newBox.id);
@@ -54,6 +58,10 @@
                     let rIdx = parseInt(arr[0]);
                     let cIdx = parseInt(arr[1])+i;
                     let newBox = document.getElementById(`${rIdx}-${cIdx}`);
+                    if (!newBox) {
+                        clearInterval(movementInterval);
+                        return;
+                    };
                     evaluateScore(newBox);
                     newBox.className = 'active';
                     snakePosition.push(newBox.id);
@@ -64,6 +72,10 @@
                     let rIdx = parseInt(arr[0])+i;
                     let cIdx = parseInt(arr[1]);
                     let newBox = document.getElementById(`${rIdx}-${cIdx}`);
+                    if (!newBox) {
+                        clearInterval(movementInterval);
+                        return;
+                    };
                     evaluateScore(newBox);
                     newBox.className = 'active';
                     snakePosition.push(newBox.id);
@@ -74,6 +86,10 @@
                     let rIdx = parseInt(arr[0]);
                     let cIdx = parseInt(arr[1])-i;
                     let newBox = document.getElementById(`${rIdx}-${cIdx}`);
+                    if (!newBox) {
+                        clearInterval(movementInterval);
+                        return;
+                    };
                     evaluateScore(newBox);
                     newBox.className = 'active';
                     snakePosition.push(newBox.id);
@@ -125,7 +141,11 @@
         if (!gameActive) {
             gameActive = true;
         }
-        if (key === 37) {
+        //Call moveSnake function every n seconds
+            if (!movementInterval) {    
+                movementInterval = window.setInterval(moveSnake, n);
+            }
+            if (key === 37) {
             if(direction !== 2) {
                 direction = 4;
             }
@@ -146,15 +166,16 @@
 
     //Move Snake (push and pop box classes)
     function moveSnake() {
-        const removeBox = snakePosition.splice(0,1);
-        document.getElementById(removeBox[0]).className = '';
-        
         const arr = snakePosition[snakePosition.length-1].split("-");
         console.log(snakePosition, arr);
         expandSnake(arr,2);
+        if (movementInterval){
+            const removeBox = snakePosition.splice(0,1);
+            document.getElementById(removeBox[0]).className = '';
+        }
     }
 
-    // Write "win" logic. Add 1 point to counter when cell changes from "has-food" class to "active".
+    // Write "win" logic. Add 100 points to counter when cell changes from "has-food" class to "active".
     function evaluateScore(box) {
         if (box.className === 'has-food') {
             score = score + 100;
