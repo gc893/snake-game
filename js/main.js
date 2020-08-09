@@ -5,7 +5,7 @@
 // Variables
 
     let direction = Math.floor(Math.random()*4 +1);
-    let movementInterval, n= 150, score = 0, gameActive;
+    let movementInterval, n= 150, score = 0, gameActive, playerLost;
     const snakePosition = [];
 
 //Cached Element References
@@ -118,51 +118,55 @@
         if (!gameActive) {
             gameActive = true;
         }
+        if (playerLost) {
+            return;
+        }
+
         //Call moveSnake function every n seconds
-            if (!movementInterval) {    
+        if (!movementInterval) {    
+            movementInterval = window.setInterval(moveSnake, n);
+        }
+        if (key === 37) {
+            if(direction === 4) {
+                return;
+            }
+            if(direction !== 2) {
+                direction = 4;
+                moveSnake();
+                clearInterval(movementInterval);
                 movementInterval = window.setInterval(moveSnake, n);
             }
-            if (key === 37) {
-                if(direction === 4) {
-                    return;
-                }
-                if(direction !== 2) {
-                    direction = 4;
-                    moveSnake();
-                    clearInterval(movementInterval);
-                    movementInterval = window.setInterval(moveSnake, n);
-                }
-            } else if (key === 38) {
-                if(direction === 1) {
-                    return;
-                }
-                if(direction !== 3) {
-                    direction = 1;
-                    moveSnake();
-                    clearInterval(movementInterval);
-                    movementInterval = window.setInterval(moveSnake, n);
-                }
-            } else if (key === 39) {
-                if(direction === 2) {
-                    return;
-                }
-                if(direction !== 4) {
-                    direction = 2;
-                    moveSnake();
-                    clearInterval(movementInterval);
-                    movementInterval = window.setInterval(moveSnake, n);
-                }
-            } else if (key === 40) {
-                if(direction === 3) {
-                    return;
-                }
-                if(direction !== 1) {
-                    direction = 3;
-                    moveSnake();
-                    clearInterval(movementInterval);
-                    movementInterval = window.setInterval(moveSnake, n);
-                }
+        } else if (key === 38) {
+            if(direction === 1) {
+                return;
             }
+            if(direction !== 3) {
+                direction = 1;
+                moveSnake();
+                clearInterval(movementInterval);
+                movementInterval = window.setInterval(moveSnake, n);
+            }
+        } else if (key === 39) {
+            if(direction === 2) {
+                return;
+            }
+            if(direction !== 4) {
+                direction = 2;
+                moveSnake();
+                clearInterval(movementInterval);
+                movementInterval = window.setInterval(moveSnake, n);
+            }
+        } else if (key === 40) {
+            if(direction === 3) {
+                return;
+            }
+            if(direction !== 1) {
+                direction = 3;
+                moveSnake();
+                clearInterval(movementInterval);
+                movementInterval = window.setInterval(moveSnake, n);
+            }
+        }
     }
 
     //Move Snake (push and pop box classes)
@@ -180,6 +184,7 @@
     function evaluateNextCell (box, oldBox) {
         if (!box) {
             clearInterval(movementInterval);
+            playerLost = true;
             return;
         }
         evaluateScore(box, oldBox);
@@ -195,22 +200,19 @@
             snakePosition.unshift(oldBoxString);
             score = score + 100;
             scoreEl.innerHTML = score;
-            evaluateDifficulty();
+            n = Math.max(n-1,50);
+            console.log(n);
             placeFood();
         }
     }
 
-    function evaluateDifficulty() {
-        if(score >=1500) {
-            n = 50;
-        } else if(score >=500) {
-            n = 100;
-        }
-    }
+
     //Initialize game function
     function init() {
         let gameActive = false;
+        let playerLost = false;
         let score = 0;
+        n = 150;
         scoreEl.innerHTML = score;
         direction = Math.floor(Math.random()*4 +1);
 
