@@ -5,7 +5,7 @@
 // Variables
 
     let direction = Math.floor(Math.random()*4 +1);
-    let movementInterval, n= 500, score = 0, gameActive;
+    let movementInterval, n= 150, score = 0, gameActive;
     const snakePosition = [];
 
 //Cached Element References
@@ -38,20 +38,14 @@
         return boxIndex;
     }
 
-    function expandSnake(arr, x) {
+    function expandSnake(arr, x, oldBox) {
         switch(direction) {
             case 1:
                 for(let i = 1; i <x; i++){
                     let rIdx = parseInt(arr[0])-i;
                     let cIdx = parseInt(arr[1]);
                     let newBox = document.getElementById(`${rIdx}-${cIdx}`);
-                    if (!newBox) {
-                        clearInterval(movementInterval);
-                        return;
-                    };
-                    evaluateScore(newBox);
-                    newBox.className = 'active';
-                    snakePosition.push(newBox.id);
+                    evaluateNextCell(newBox, oldBox);
                 }
                 break;
             case 2: 
@@ -59,13 +53,7 @@
                     let rIdx = parseInt(arr[0]);
                     let cIdx = parseInt(arr[1])+i;
                     let newBox = document.getElementById(`${rIdx}-${cIdx}`);
-                    if (!newBox) {
-                        clearInterval(movementInterval);
-                        return;
-                    };
-                    evaluateScore(newBox);
-                    newBox.className = 'active';
-                    snakePosition.push(newBox.id);
+                    evaluateNextCell(newBox, oldBox);
                 }
                 break;
             case 3: 
@@ -73,13 +61,7 @@
                     let rIdx = parseInt(arr[0])+i;
                     let cIdx = parseInt(arr[1]);
                     let newBox = document.getElementById(`${rIdx}-${cIdx}`);
-                    if (!newBox) {
-                        clearInterval(movementInterval);
-                        return;
-                    };
-                    evaluateScore(newBox);
-                    newBox.className = 'active';
-                    snakePosition.push(newBox.id);
+                    evaluateNextCell(newBox, oldBox);
                 }
                 break;
             case 4: 
@@ -87,13 +69,7 @@
                     let rIdx = parseInt(arr[0]);
                     let cIdx = parseInt(arr[1])-i;
                     let newBox = document.getElementById(`${rIdx}-${cIdx}`);
-                    if (!newBox) {
-                        clearInterval(movementInterval);
-                        return;
-                    };
-                    evaluateScore(newBox);
-                    newBox.className = 'active';
-                    snakePosition.push(newBox.id);
+                    evaluateNextCell(newBox, oldBox);
                 }
                 break;
         }
@@ -147,43 +123,90 @@
                 movementInterval = window.setInterval(moveSnake, n);
             }
             if (key === 37) {
-            if(direction !== 2) {
-                direction = 4;
+                if(direction === 4) {
+                    return;
+                }
+                if(direction !== 2) {
+                    direction = 4;
+                    moveSnake();
+                    clearInterval(movementInterval);
+                    movementInterval = window.setInterval(moveSnake, n);
+                }
+            } else if (key === 38) {
+                if(direction === 1) {
+                    return;
+                }
+                if(direction !== 3) {
+                    direction = 1;
+                    moveSnake();
+                    clearInterval(movementInterval);
+                    movementInterval = window.setInterval(moveSnake, n);
+                }
+            } else if (key === 39) {
+                if(direction === 2) {
+                    return;
+                }
+                if(direction !== 4) {
+                    direction = 2;
+                    moveSnake();
+                    clearInterval(movementInterval);
+                    movementInterval = window.setInterval(moveSnake, n);
+                }
+            } else if (key === 40) {
+                if(direction === 3) {
+                    return;
+                }
+                if(direction !== 1) {
+                    direction = 3;
+                    moveSnake();
+                    clearInterval(movementInterval);
+                    movementInterval = window.setInterval(moveSnake, n);
+                }
             }
-        } else if (key === 38) {
-            if(direction !== 3) {
-                direction = 1;
-            }
-        } else if (key === 39) {
-            if(direction !== 4) {
-                direction = 2;
-            }
-        } else if (key === 40) {
-            if(direction !== 1) {
-                direction = 3;
-            }
-        }
     }
 
     //Move Snake (push and pop box classes)
     function moveSnake() {
+        const oldBox = snakePosition[0].split("-");
         const arr = snakePosition[snakePosition.length-1].split("-");
-        console.log(snakePosition, arr);
-        expandSnake(arr,2);
+        console.log(snakePosition, arr, oldBox);
+        expandSnake(arr,2, oldBox);
         if (movementInterval){
             const removeBox = snakePosition.splice(0,1);
             document.getElementById(removeBox[0]).className = '';
         }
     }
 
+    function evaluateNextCell (box, oldBox) {
+        if (!box) {
+            clearInterval(movementInterval);
+            return;
+        }
+        evaluateScore(box, oldBox);
+        box.className = 'active';
+        snakePosition.push(box.id);
+    }
+
     // Write "win" logic. Add 100 points to counter when cell changes from "has-food" class to "active".
-    function evaluateScore(box) {
+    function evaluateScore(box, oldBox) {
         if (box.className === 'has-food') {
+            let oldBoxString = oldBox.join("-");
+            selectBox(oldBoxString).className = 'active';
+            snakePosition.unshift(oldBoxString);
             score = score + 100;
             scoreEl.innerHTML = score;
+            evaluateDifficulty();
+            placeFood();
         }
     }
 
+    function evaluateDifficulty() {
+        if(score >=1500) {
+            n = 50;
+        } else if(score >=500) {
+            n = 100;
+        }
+    }
     //Initialize game function
     function init() {
         let gameActive = false;
@@ -197,9 +220,5 @@
     }
 
     init();
-
-
-
-//write timed logic to "move the snake" by activating/inactivating boxes.
 
 //write "loose" logic when "next-box" is undefined.
