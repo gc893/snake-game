@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
     <script defer src='js/main.js'></script>
     <title>Document</title>
@@ -10,10 +11,34 @@
 
 <body>
     <div class='game-container'>
-        <div class="message-container">Snake Game</div>
+        <div class="message-container">
+            <h1>Snake Game</h1>
+        </div>
         <div id="board" class='board'></div>
-        <div class='game-info'>Difficulty Buttons and Points</div>
-        <div class='game-footer'>Built By</div>
+        <div class='game-info'>
+            <div id="left">
+                
+            </div>
+            <div id="center">
+                <h4 class="title easy">Difficulty: Easy</h4>
+            </div>
+            <div id="right">
+                <h4 class="title">Score</h4>
+            </div>
+        </div>
+        <div class='game-footer'>
+            <div id="left">
+                
+            </div>
+            <div id="center" class="difficulty">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated easy-background" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="500" style="width: 10%"></div>
+                  </div>
+            </div>
+            <div id="right">
+                <h4 id="score" class="title"></h4>
+            </div>
+        </div>
     </div>
 </body>
 </html>

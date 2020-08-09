@@ -18,8 +18,13 @@ body {
  .message-container {
     background-color: white;
     width: 100%;
-    height: 50px;
+    height: 100px;
 } 
+
+.message-container > h1 {
+    margin: 0;
+    padding-top: 0.6em;
+}
 
 /* Assuming 20x20 grid of 2px*2px boxes */
  .board {
@@ -48,13 +53,45 @@ body {
 }
 
  .game-info {
+    display: flex;
     background-color: white;
     width: 100%;
     height: 50px;
+    font-size: 16px;
+}
+
+#left {
+    width: 100px;
+}
+
+#center {
+    width: 400px;
+}
+
+.title {
+    font-size: 1em;
+    margin: 1em 0;
+}
+
+.easy {
+    color: #E85D04;
+}
+
+.easy-background {
+    background-color: #E85D04;
+}
+
+#right {
+    width: 100px;
+}
+
+#score {
+    margin: 0.75em 0 0;
 }
 
 .game-footer {
-    background-color: coral;
+    display: flex;
+    background-color: white;
     width: 100%;
     height: 50px;
 } 

@@ -11,6 +11,7 @@
 //Cached Element References
 
     const board = document.getElementById('board');
+    const scoreEl = document.getElementById('score');
 
 // Event Listeners
 
@@ -179,7 +180,7 @@
     function evaluateScore(box) {
         if (box.className === 'has-food') {
             score = score + 100;
-            console.log(score);
+            scoreEl.innerHTML = score;
         }
     }
 
@@ -187,6 +188,7 @@
     function init() {
         let gameActive = false;
         let score = 0;
+        scoreEl.innerHTML = score;
         direction = Math.floor(Math.random()*4 +1);
 
         createBoxes();
