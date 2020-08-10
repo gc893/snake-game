@@ -125,8 +125,13 @@
         }
 
         //Call moveSnake function every n seconds
-        if (!movementInterval) {    
+        if (!movementInterval) {
+            if (key === 37 && direction === 2 || key === 38 && direction === 3 || key === 39 && direction === 4 || key === 40 && direction === 1) {
+                gameActive = false;
+                return;
+            } else {    
             movementInterval = window.setInterval(moveSnake, n);
+            }
         }
         if (key === 37) {
             if(direction === 4) {
@@ -254,5 +259,3 @@
     }
 
     init();
-
-//write "loose" logic when "next-box" is undefined.
