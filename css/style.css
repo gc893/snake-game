@@ -35,7 +35,7 @@ body {
  .board {
     display: flex;
     flex-wrap: wrap;
-    background-color: coral;
+    background-color: #fffaea;
     width: 400px;
     height: 400px;
     margin-left: 100px;
@@ -53,6 +53,11 @@ body {
 
 .board > .has-food {
     background-color: #85E4EA;
+}
+
+.board > .has-bonus {
+    background-color: #D00000;
+    border-radius: 50%;
 }
 
 .board > .active {

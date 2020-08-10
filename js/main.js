@@ -117,6 +117,16 @@
         }
     }
 
+        //Place a bonus item on the board
+        function placeBonus() {
+            let box = selectBox(generateFoodIndex());
+            if (box.className){
+                return;
+            } else {
+                box.className = 'has-bonus';
+            }
+        }
+
     //write direction logic to change the direction of the snake only if new direction is valid
     function changeDirection (key) {
         if (!gameActive) {
@@ -261,6 +271,7 @@
         createBoxes();
         createSnake();
         placeFood();
+        placeBonus();
     }
 
     init();
