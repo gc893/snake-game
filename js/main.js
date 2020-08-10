@@ -14,11 +14,13 @@
     const scoreEl = document.getElementById('score');
     const difficultyTitleEl = document.getElementById('difficulty-title');
     const difficultyBarEl = document.getElementById('difficulty-bar');
+    const resetBtn = document.getElementById('resetBtn');
 
 // Event Listeners
 
     //Add event listeners to keyboard arrows to modify the direction of the snake
     document.addEventListener('keydown', event => changeDirection(event.keyCode))
+    resetBtn.addEventListener('click',init)
 
 // Helper Functions
 
@@ -242,7 +244,6 @@
         }
     }
 
-
     //Initialize game function
     function init() {
         let gameActive = false;
@@ -252,7 +253,7 @@
         scoreEl.innerHTML = score;
         direction = Math.floor(Math.random()*4 +1);
         difficultyBarEl.setAttribute("style",`width: 0%`)
-
+        board.innerHTML = "";
         createBoxes();
         createSnake();
         placeFood();

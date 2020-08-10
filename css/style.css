@@ -71,6 +71,10 @@ body {
     width: 100px;
 }
 
+#resetBtn {
+    font-size: 14px;
+}
+
 #center {
     width: 400px;
 }
