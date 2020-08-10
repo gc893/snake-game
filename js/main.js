@@ -183,8 +183,11 @@
 
     function evaluateNextCell (box, oldBox) {
         if (!box) {
-            clearInterval(movementInterval);
-            playerLost = true;
+            snakeCrashed();
+            return;
+        }
+        if(box.className === 'active') {
+            snakeCrashed();
             return;
         }
         evaluateScore(box, oldBox);
@@ -204,6 +207,12 @@
             console.log(n);
             placeFood();
         }
+    }
+    
+    //Write loose logic on intersect with itself
+    function snakeCrashed() {
+        clearInterval(movementInterval);
+        playerLost = true;
     }
 
 
