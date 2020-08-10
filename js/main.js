@@ -194,7 +194,7 @@
         const arr = snakePosition[snakePosition.length-1].split("-");
         console.log(snakePosition, arr, oldBox);
         expandSnake(arr,2, oldBox);
-        if (movementInterval){
+        if (!playerLost){
             const removeBox = snakePosition.splice(0,1);
             document.getElementById(removeBox[0]).className = '';
         }
