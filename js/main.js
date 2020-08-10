@@ -12,6 +12,8 @@
 
     const board = document.getElementById('board');
     const scoreEl = document.getElementById('score');
+    const difficultyTitleEl = document.getElementById('difficulty-title');
+    const difficultyBarEl = document.getElementById('difficulty-bar');
 
 // Event Listeners
 
@@ -204,7 +206,7 @@
             score = score + 100;
             scoreEl.innerHTML = score;
             n = Math.max(n-1,50);
-            console.log(n);
+            updateDifficultyBar();
             placeFood();
         }
     }
@@ -213,6 +215,26 @@
     function snakeCrashed() {
         clearInterval(movementInterval);
         playerLost = true;
+    }
+
+    //Change color of diffculty based on game speed
+    function updateDifficultyBar() {
+        if (n <= 50) {
+            difficultyTitleEl.style.color = "#D00000";
+            difficultyTitleEl.innerHTML = "Difficulty: Hard"
+            difficultyBarEl.style.backgroundColor = "#D00000";
+            difficultyBarEl.setAttribute("style",`width: ${151-(n+1)}%`)
+        } else if (n <= 100) {
+            difficultyTitleEl.style.color = "#DC2F02";
+            difficultyTitleEl.innerHTML = "Difficulty: Medium"
+            difficultyBarEl.style.backgroundColor = "#DC2F02";
+            difficultyBarEl.setAttribute("style",`width: ${151-(n+1)}%`)
+        } else if (n <= 150) {
+            difficultyTitleEl.style.color =  "#E85D04";
+            difficultyTitleEl.innerHTML = "Difficulty: Easy"
+            difficultyBarEl.style.backgroundColor = "#E85D04";
+            difficultyBarEl.setAttribute("style",`width: ${151-(n+1)}%`)
+        }
     }
 
 
@@ -224,6 +246,7 @@
         n = 150;
         scoreEl.innerHTML = score;
         direction = Math.floor(Math.random()*4 +1);
+        difficultyBarEl.setAttribute("style",`width: 0%`)
 
         createBoxes();
         createSnake();
