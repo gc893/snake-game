@@ -6,7 +6,7 @@
 
     let direction = Math.floor(Math.random()*4 +1);
     let movementInterval, n= 150, score = 0, gameActive, playerLost;
-    const snakePosition = [];
+    let snakePosition = [];
 
 //Cached Element References
 
@@ -20,7 +20,7 @@
 
     //Add event listeners to keyboard arrows to modify the direction of the snake
     document.addEventListener('keydown', event => changeDirection(event.keyCode))
-    resetBtn.addEventListener('click',init)
+    resetBtn.addEventListener('click', init)
 
 // Helper Functions
 
@@ -246,14 +246,18 @@
 
     //Initialize game function
     function init() {
-        let gameActive = false;
-        let playerLost = false;
-        let score = 0;
+        gameActive = false;
+        playerLost = false;
+        score = 0;
         n = 150;
         scoreEl.innerHTML = score;
         direction = Math.floor(Math.random()*4 +1);
         difficultyBarEl.setAttribute("style",`width: 0%`)
+        clearInterval(movementInterval);
         board.innerHTML = "";
+        if(snakePosition.length >0){
+            snakePosition = [];
+        }
         createBoxes();
         createSnake();
         placeFood();
