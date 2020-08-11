@@ -119,11 +119,13 @@
 
         //Place a bonus item on the board
         function placeBonus() {
-            let box = selectBox(generateFoodIndex());
-            if (box.className){
-                return;
-            } else {
-                box.className = 'has-bonus';
+            if(score > 0 && (score/100)%20 ===0){
+                let box = selectBox(generateFoodIndex());
+                if (box.className){
+                    return placeBonus();
+                } else {
+                    box.className = 'has-bonus';
+                }
             }
         }
 
@@ -225,9 +227,10 @@
             n = Math.max(n-1,50);
             updateDifficultyBar();
             placeFood();
+            placeBonus();
         }
     }
-    
+
     //Write loose logic on intersect with itself
     function snakeCrashed() {
         clearInterval(movementInterval);
@@ -239,10 +242,10 @@
             let lastBox = snakePosition.pop();
             selectBox(lastBox).className = ''
             }
-        },500)
+        },100)
         lostMessage = window.setTimeout(function(){
             console.log('game over')
-        }, snakePosition.length*500)
+        }, snakePosition.length*100)
     }
 
     //Change color of diffculty based on game speed
@@ -284,7 +287,6 @@
         createBoxes();
         createSnake();
         placeFood();
-        placeBonus();
     }
 
     init();
