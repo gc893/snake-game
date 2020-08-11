@@ -28,7 +28,9 @@ body {
 
 .message-container > h1 {
     margin: 0;
-    padding-top: 0.6em;
+    padding-top: 20px;
+    font-family: 'chilanka', cursive;
+    font-size: 4em;
 }
 
 /* Assuming 20x20 grid of 2px*2px boxes */
@@ -78,6 +80,11 @@ body {
 }
 
 #resetBtn {
+    background-color: #0B3142;
+    border-color: #0B3142;
+    font-size: 14px;
+}
+#restartBtn {
     background-color: #0B3142;
     border-color: #0B3142;
     font-size: 14px;
