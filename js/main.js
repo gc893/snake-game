@@ -15,12 +15,15 @@
     const difficultyTitleEl = document.getElementById('difficulty-title');
     const difficultyBarEl = document.getElementById('difficulty-bar');
     const resetBtn = document.getElementById('resetBtn');
+    const modalFinalScore = document.getElementById('modal-final-score');
+    const restartBtn = document.getElementById('restartBtn');
 
 // Event Listeners
 
     //Add event listeners to keyboard arrows to modify the direction of the snake
     document.addEventListener('keydown', event => changeDirection(event.keyCode))
     resetBtn.addEventListener('click', init)
+    restartBtn.addEventListener('click', init)
 
 // Helper Functions
 
@@ -248,6 +251,8 @@
     function snakeCrashed() {
         clearInterval(movementInterval);
         playerLost = true;
+        modalFinalScore.innerHTML = `Better luck next time! Final score: ${score}pts.`;
+        $('#exampleModal').modal('show');
         fadeSnake = window.setInterval(function(){
             if(snakePosition.length === 0){
                 clearInterval(fadeSnake);
