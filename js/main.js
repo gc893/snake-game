@@ -5,7 +5,7 @@
 // Variables
 
     let direction = Math.floor(Math.random()*4 +1);
-    let movementInterval, n= 150, score = 0, gameActive, playerLost;
+    let fadeSnake, lostMessage, movementInterval, n= 150, score = 0, gameActive, playerLost;
     let snakePosition = [];
 
 //Cached Element References
@@ -232,6 +232,17 @@
     function snakeCrashed() {
         clearInterval(movementInterval);
         playerLost = true;
+        fadeSnake = window.setInterval(function(){
+            if(snakePosition.length === 0){
+                clearInterval(fadeSnake);
+            } else {
+            let lastBox = snakePosition.pop();
+            selectBox(lastBox).className = ''
+            }
+        },500)
+        lostMessage = window.setTimeout(function(){
+            console.log('game over')
+        }, snakePosition.length*500)
     }
 
     //Change color of diffculty based on game speed
@@ -264,6 +275,8 @@
         direction = Math.floor(Math.random()*4 +1);
         difficultyBarEl.setAttribute("style",`width: 0%`)
         clearInterval(movementInterval);
+        clearInterval(fadeSnake);
+        clearInterval(lostMessage);
         board.innerHTML = "";
         if(snakePosition.length >0){
             snakePosition = [];
