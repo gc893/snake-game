@@ -5,7 +5,7 @@
 // Variables
 
     let direction = Math.floor(Math.random()*4 +1);
-    let fadeSnake, lostMessage, movementInterval, n= 150, score = 0, gameActive, playerLost;
+    let boxesTravelled = 0, fadeSnake, lostMessage, movementInterval, n= 150, score = 0, gameActive, playerLost;
     let snakePosition = [];
 
 //Cached Element References
@@ -119,12 +119,13 @@
 
         //Place a bonus item on the board
         function placeBonus() {
-            if(score > 0 && (score/100)%20 ===0){
+            if(score > 0 && (score/100)%10 ===0){
                 let box = selectBox(generateFoodIndex());
                 if (box.className){
                     return placeBonus();
                 } else {
                     box.className = 'has-bonus';
+                    boxesTravelled = 0;
                 }
             }
         }
@@ -211,9 +212,21 @@
             snakeCrashed();
             return;
         }
+        if(box.className === 'has-bonus') {
+            let n2 = Math.max(0, 20 - boxesTravelled);
+            console.log(`${n2} boxes deleted!`);
+            for(let i=0; i < n2; i++){
+                if(snakePosition.length >= 4){
+                    let lastBox = snakePosition.splice(0,1);
+                    selectBox(lastBox).className = '';
+                }
+            }
+            
+        }
         evaluateScore(box, oldBox);
         box.className = 'active';
         snakePosition.push(box.id);
+        boxesTravelled++;
     }
 
     // Write "win" logic. Add 100 points to counter when cell changes from "has-food" class to "active".
@@ -273,6 +286,7 @@
         gameActive = false;
         playerLost = false;
         score = 0;
+        boxesTravelled = 0;
         n = 150;
         scoreEl.innerHTML = score;
         direction = Math.floor(Math.random()*4 +1);
