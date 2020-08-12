@@ -232,7 +232,7 @@
             for(let i=0; i < n2; i++){
                 if(snakePosition.length > 4){
                     let lastBox = snakePosition.splice(0,1);
-                    selectBox(lastBox).className = '';
+                    selectBox(lastBox[0]).className = '';
                 }
             }
             
@@ -245,7 +245,7 @@
         if(boxesTravelled === 20) {
             if(bonusPosition.length > 0){
                 let oldBonus = bonusPosition.splice(0,1);
-                selectBox(oldBonus).className = '';
+                selectBox(oldBonus[0]).className = '';
             }
         }
     }
