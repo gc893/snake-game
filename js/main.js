@@ -135,22 +135,25 @@
 
     //write direction logic to change the direction of the snake only if new direction is valid
     function changeDirection (key) {
-        if (!gameActive) {
-            gameActive = true;
-        }
         if (playerLost) {
             return;
         }
 
         //Call moveSnake function every n seconds
         if (!movementInterval) {
-            if (key === 37 && direction === 2 || key === 38 && direction === 3 || key === 39 && direction === 4 || key === 40 && direction === 1) {
-                gameActive = false;
+            if (
+                (key === 37 && direction === 2) || 
+                (key === 38 && direction === 3) || 
+                (key === 39 && direction === 4) || 
+                (key === 40 && direction === 1)) {
+        //        gameActive = false;
                 return;
-            } else {    
+            } 
+            else {    
             movementInterval = window.setInterval(moveSnake, n);
             }
         }
+        gameActive = true;
         if (key === 37) {
             if(direction === 4) {
                 return;
@@ -207,6 +210,10 @@
     }
 
     function evaluateNextCell (box, oldBox) {
+        if(playerLost) {
+            return;
+        }
+
         if (!box) {
             snakeCrashed();
             return;
@@ -247,18 +254,19 @@
         }
     }
 
-    //Write loose logic on intersect with itself
+    //Write loose logic
     function snakeCrashed() {
         clearInterval(movementInterval);
         playerLost = true;
         modalFinalScore.innerHTML = `Better luck next time! Final score: ${score}pts.`;
         $('#exampleModal').modal('show');
-        fadeSnake = window.setInterval(function(){
-            if(snakePosition.length === 0){
-                clearInterval(fadeSnake);
+        fadeSnake = window.setInterval(function() {
+            if(snakePosition.length > 0){
+                let lastBox = snakePosition.pop();
+                console.log(lastBox);
+                selectBox(lastBox).className = ''
             } else {
-            let lastBox = snakePosition.pop();
-            selectBox(lastBox).className = ''
+                clearInterval(fadeSnake);
             }
         },100)
     }
