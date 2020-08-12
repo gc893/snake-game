@@ -261,9 +261,6 @@
             selectBox(lastBox).className = ''
             }
         },100)
-        lostMessage = window.setTimeout(function(){
-            console.log('game over')
-        }, snakePosition.length*100)
     }
 
     //Change color of diffculty based on game speed
@@ -288,6 +285,8 @@
 
     //Initialize game function
     function init() {
+        clearInterval(movementInterval);
+        clearInterval(fadeSnake);
         gameActive = false;
         playerLost = false;
         score = 0;
@@ -296,9 +295,6 @@
         scoreEl.innerHTML = score;
         direction = Math.floor(Math.random()*4 +1);
         difficultyBarEl.setAttribute("style",`width: 0%`)
-        clearInterval(movementInterval);
-        clearInterval(fadeSnake);
-        clearInterval(lostMessage);
         board.innerHTML = "";
         if(snakePosition.length >0){
             snakePosition = [];
