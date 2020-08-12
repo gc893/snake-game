@@ -140,13 +140,12 @@
         }
 
         //Call moveSnake function every n seconds
-        if (!movementInterval) {
+        if (!gameActive) {
             if (
                 (key === 37 && direction === 2) || 
                 (key === 38 && direction === 3) || 
                 (key === 39 && direction === 4) || 
                 (key === 40 && direction === 1)) {
-        //        gameActive = false;
                 return;
             } 
             else {    
@@ -257,6 +256,7 @@
     //Write loose logic
     function snakeCrashed() {
         clearInterval(movementInterval);
+        gameActive = false;
         playerLost = true;
         modalFinalScore.innerHTML = `Better luck next time! Final score: ${score}pts.`;
         $('#exampleModal').modal('show');
