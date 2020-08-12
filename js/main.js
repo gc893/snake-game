@@ -7,6 +7,7 @@
     let direction = Math.floor(Math.random()*4 +1);
     let boxesTravelled = 0, fadeSnake, lostMessage, movementInterval, n= 150, score = 0, gameActive, playerLost;
     let snakePosition = [];
+    let bonusPosition = [];
 
 //Cached Element References
 
@@ -128,6 +129,7 @@
                     return placeBonus();
                 } else {
                     box.className = 'has-bonus';
+                    bonusPosition.push(box.id);
                     boxesTravelled = 0;
                 }
             }
@@ -236,6 +238,10 @@
         box.className = 'active';
         snakePosition.push(box.id);
         boxesTravelled++;
+        if(boxesTravelled === 20) {
+            let oldBonus = bonusPosition.splice(0,1);
+            selectBox(oldBonus).className = '';
+        }
     }
 
     // Write "win" logic. Add 100 points to counter when cell changes from "has-food" class to "active".
