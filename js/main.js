@@ -200,6 +200,9 @@
 
     //Move Snake (push and pop box classes)
     function moveSnake() {
+        if(playerLost){
+            return;
+        }
         const oldBox = snakePosition[0].split("-");
         const arr = snakePosition[snakePosition.length-1].split("-");
         console.log(snakePosition, arr, oldBox);
@@ -227,7 +230,7 @@
             let n2 = Math.max(0, 20 - boxesTravelled);
             console.log(`${n2} boxes deleted!`);
             for(let i=0; i < n2; i++){
-                if(snakePosition.length >= 4){
+                if(snakePosition.length > 4){
                     let lastBox = snakePosition.splice(0,1);
                     selectBox(lastBox).className = '';
                 }
@@ -238,9 +241,12 @@
         box.className = 'active';
         snakePosition.push(box.id);
         boxesTravelled++;
+        
         if(boxesTravelled === 20) {
-            let oldBonus = bonusPosition.splice(0,1);
-            selectBox(oldBonus).className = '';
+            if(bonusPosition.length > 0){
+                let oldBonus = bonusPosition.splice(0,1);
+                selectBox(oldBonus).className = '';
+            }
         }
     }
 
