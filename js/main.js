@@ -200,14 +200,12 @@
 
     //Move Snake (push and pop box classes)
     function moveSnake() {
-        if(playerLost){
-            return;
-        }
-        const oldBox = snakePosition[0].split("-");
-        const arr = snakePosition[snakePosition.length-1].split("-");
-        console.log(snakePosition, arr, oldBox);
-        expandSnake(arr,2, oldBox);
         if (!playerLost){
+            const oldBox = snakePosition[0].split("-");
+            const arr = snakePosition[snakePosition.length-1].split("-");
+            console.log(snakePosition, arr, oldBox);
+            expandSnake(arr,2, oldBox);
+
             const removeBox = snakePosition.splice(0,1);
             document.getElementById(removeBox[0]).className = '';
         }
@@ -235,14 +233,13 @@
                     selectBox(lastBox[0]).className = '';
                 }
             }
-            
         }
         evaluateScore(box, oldBox);
         box.className = 'active';
         snakePosition.push(box.id);
         boxesTravelled++;
         
-        if(boxesTravelled === 20) {
+        if(boxesTravelled === 20 && !snakePosition.find(el => el === bonusPosition[0])) {
             if(bonusPosition.length > 0){
                 let oldBonus = bonusPosition.splice(0,1);
                 selectBox(oldBonus[0]).className = '';
