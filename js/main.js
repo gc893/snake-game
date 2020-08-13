@@ -87,6 +87,12 @@
         }
     }
 
+    function startMovement() {
+        moveSnake();
+        clearInterval(movementInterval);
+        movementInterval = window.setInterval(moveSnake, n);
+    }
+
     function showHelpWindow() {
         modalLabel.innerHTML = `Instructions`;
         modalText.innerHTML = `Use the arrows on your keyboard to play.<br><br>
@@ -168,7 +174,7 @@
                     container.className = 'animate__animated animate__headShake';
                     return;
             } 
-            else {
+            else if(key === 37 || key === 38 || key === 39 || key === 40){
                 helpBtn.className = 'hidden';
                 gameActive = true;
                 movementInterval = window.setInterval(moveSnake, n);
@@ -180,9 +186,7 @@
             }
             if(direction !== 2) {
                 direction = 4;
-                moveSnake();
-                clearInterval(movementInterval);
-                movementInterval = window.setInterval(moveSnake, n);
+                startMovement();
             }
         } else if (key === 38) {
             if(direction === 1) {
@@ -190,9 +194,7 @@
             }
             if(direction !== 3) {
                 direction = 1;
-                moveSnake();
-                clearInterval(movementInterval);
-                movementInterval = window.setInterval(moveSnake, n);
+                startMovement();
             }
         } else if (key === 39) {
             if(direction === 2) {
@@ -200,9 +202,7 @@
             }
             if(direction !== 4) {
                 direction = 2;
-                moveSnake();
-                clearInterval(movementInterval);
-                movementInterval = window.setInterval(moveSnake, n);
+                startMovement();
             }
         } else if (key === 40) {
             if(direction === 3) {
@@ -210,9 +210,7 @@
             }
             if(direction !== 1) {
                 direction = 3;
-                moveSnake();
-                clearInterval(movementInterval);
-                movementInterval = window.setInterval(moveSnake, n);
+                startMovement();
             }
         }
     }
