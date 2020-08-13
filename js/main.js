@@ -115,7 +115,6 @@
             box.id = `${Math.floor(i/20)}-${i%20}`;
             board.appendChild(box);
         }
-        console.log(board)
     }
 
     //Activate 4 random consecutive boxes to create the snake
@@ -131,7 +130,6 @@
         let id = box.id;
         const idArr = id.split("-");
         expandSnake(idArr, 4);
-        console.log(snakePosition);
     }
 
     //Place a food item on the board
@@ -220,7 +218,6 @@
         if (!playerLost){
             const oldBox = snakePosition[0].split("-");
             const arr = snakePosition[snakePosition.length-1].split("-");
-            console.log(snakePosition, arr, oldBox);
             expandSnake(arr,2, oldBox);
 
             const removeBox = snakePosition.splice(0,1);
@@ -243,7 +240,6 @@
         }
         if(box.className === 'has-bonus') {
             let n2 = Math.max(0, 20 - boxesTravelled);
-            console.log(`${n2} boxes deleted!`);
             for(let i=0; i < n2; i++){
                 if(snakePosition.length > 4){
                     let lastBox = snakePosition.splice(0,1);
@@ -292,7 +288,6 @@
         fadeSnake = window.setInterval(function() {
             if(snakePosition.length > 0){
                 let lastBox = snakePosition.pop();
-                console.log(lastBox);
                 selectBox(lastBox).className = ''
             } else {
                 clearInterval(fadeSnake);
