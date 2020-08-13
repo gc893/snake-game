@@ -11,13 +11,15 @@
 
 //Cached Element References
 
+    const helpBtn = document.getElementById('help-button');
     const container = document.getElementById('game-container');
     const board = document.getElementById('board');
     const scoreEl = document.getElementById('score');
     const difficultyTitleEl = document.getElementById('difficulty-title');
     const difficultyBarEl = document.getElementById('difficulty-bar');
     const resetBtn = document.getElementById('resetBtn');
-    const modalFinalScore = document.getElementById('modal-final-score');
+    const modalLabel = document.getElementById('modalLabel');
+    const modalText = document.getElementById('modal-final-score');
     const restartBtn = document.getElementById('restartBtn');
 
 // Event Listeners
@@ -26,6 +28,7 @@
     document.addEventListener('keydown', event => changeDirection(event.keyCode))
     resetBtn.addEventListener('click', init)
     restartBtn.addEventListener('click', init)
+    helpBtn.addEventListener('click', showHelpWindow)
 
 // Helper Functions
 
@@ -83,6 +86,19 @@
                 break;
         }
     }
+
+    function showHelpWindow() {
+        modalLabel.innerHTML = `Instructions`;
+        modalText.innerHTML = `Use the arrows on your keyboard to play.<br><br>
+        Eat as many blue squares as possible to win points<br>
+        and increase the difficulty of the game.<br><br>
+        Green circles appear every 1000pts<br>
+        and will reduce the length of the snake,<br>
+        but eat them quickly or they wont be as effective<br>or even go away!`;
+        restartBtn.innerHTML = "Go Play";
+        $('#exampleModal').modal('show');
+    }
+    
 
 // Functions
 
@@ -269,7 +285,9 @@
         clearInterval(movementInterval);
         gameActive = false;
         playerLost = true;
-        modalFinalScore.innerHTML = `Better luck next time! Final score: ${score}pts.`;
+        modalLabel.innerHTML = `Game Over`;
+        modalText.innerHTML = `Better luck next time! Final score: ${score}pts.`;
+        restartBtn.innerHTML = "Restart";
         $('#exampleModal').modal('show');
         fadeSnake = window.setInterval(function() {
             if(snakePosition.length > 0){

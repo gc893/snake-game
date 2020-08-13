@@ -43,9 +43,10 @@
 
 ## Stretch Goals
 
-- Add bonus items
+- ~~Add bonus items~~
+- ~~Add help modal~~
 - Add invalid move animation
-- Add help pop up
+- Mobile Responsive
 
 ## To-Dos
 
