@@ -11,6 +11,7 @@
 
 //Cached Element References
 
+    const container = document.getElementById('game-container');
     const board = document.getElementById('board');
     const scoreEl = document.getElementById('score');
     const difficultyTitleEl = document.getElementById('difficulty-title');
@@ -148,13 +149,14 @@
                 (key === 38 && direction === 3) || 
                 (key === 39 && direction === 4) || 
                 (key === 40 && direction === 1)) {
-                return;
+                    container.className = 'animate__animated animate__headShake';
+                    return;
             } 
-            else {    
-            movementInterval = window.setInterval(moveSnake, n);
+            else {
+                gameActive = true;
+                movementInterval = window.setInterval(moveSnake, n);
             }
         }
-        gameActive = true;
         if (key === 37) {
             if(direction === 4) {
                 return;
