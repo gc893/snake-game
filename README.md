@@ -1,9 +1,9 @@
+![img](https://i.imgur.com/25zouSk.jpg)
 # Snake Game
 
 ## Play Now
 
 [Click Here](https://snake-game-gc.netlify.app)
-
 
 ## Objectives
 
@@ -17,11 +17,12 @@
 - CSS
 - JS
 - Git
+- animate.style
+- getbootstrap.com
 
 ## Wirefreame
 
 ![img](https://i.imgur.com/7BSixhE.png)
-
 
 ## User Stories
 
@@ -42,11 +43,6 @@
 - Variable speed selectors
 - Point System
 
-## Credits
-
-- animate.style
-- getbootstrap.com
-
 ## Stretch Goals
 
 - Add bonus items
@@ -65,7 +61,7 @@
 
 - write timed logic to "move the snake" by activating/inactivating boxes.
 
-- Add event listeners to keyboard arrows to modify the direction (i,j counters) of the snake
+- Add event listeners to keyboard arrows to modify the direction (i,j counters) of the snake and move the snake
 
 - write direction logic to change the direction of the snake
 
