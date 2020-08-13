@@ -44,7 +44,14 @@
 
 ## Credits
 
+- animate.style
+- getbootstrap.com
 
+## Stretch Goals
+
+- Add bonus items
+- Add invalid move animation
+- Add help pop up
 
 ## To-Dos
 
