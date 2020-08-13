@@ -1,9 +1,7 @@
 ![img](https://i.imgur.com/25zouSk.jpg)
 # Snake Game
 
-## Play Now
-
-[Click Here](https://snake-game-gc.netlify.app)
+## [Play Now](https://snake-game-gc.netlify.app)
 
 ## Objectives
 
