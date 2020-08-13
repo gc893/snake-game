@@ -169,6 +169,7 @@
                     return;
             } 
             else {
+                helpBtn.className = 'hidden';
                 gameActive = true;
                 movementInterval = window.setInterval(moveSnake, n);
             }
@@ -285,6 +286,7 @@
         clearInterval(movementInterval);
         gameActive = false;
         playerLost = true;
+        helpBtn.className = '';
         modalLabel.innerHTML = `Game Over`;
         modalText.innerHTML = `Better luck next time! Final score: ${score}pts.`;
         restartBtn.innerHTML = "Restart";
