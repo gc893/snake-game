@@ -38,15 +38,16 @@
 
 ## Features
 
-- Variable speed selectors
+- Variable speed
 - Point System
 
 ## Stretch Goals
 
 - ~~Add bonus items~~
 - ~~Add help modal~~
-- Add invalid move animation
+- Improve invalid move animation
 - Mobile Responsive
+- Record High Score
 
 ## To-Dos
 
